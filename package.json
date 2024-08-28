@@ -1,0 +1,27 @@
+{
+  "name": "uscmarketplace",
+  "version": "1.0.0",
+  "description": "A marketplace for USC students to buy, sell, and trade items.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/segak2003/USCMarketPlace.git"
+  },
+  "keywords": [
+    "USC",
+    "marketplace"
+  ],
+  "author": "Sega Khafif",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/segak2003/USCMarketPlace/issues"
+  },
+  "homepage": "https://github.com/segak2003/USCMarketPlace#readme",
+  "dependencies": {
+    "bootstrap": "5.3",
+    "react-avatar-edit": "^1.2.0"
+  }
+}

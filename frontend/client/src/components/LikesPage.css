@@ -1,0 +1,45 @@
+.likes-page {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.listings-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.listing-item {
+    position: relative;
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: calc(33.333% - 20px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.listing-thumbnail {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.listing-info {
+    text-align: left;
+    flex-grow: 1;
+}
+
+.cost-unlike-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.unlike-icon {
+    align-self: flex-end;
+    width: 20px;
+    height: 20px;
+    margin-bottom: 6%;
+}

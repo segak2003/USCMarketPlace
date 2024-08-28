@@ -1,0 +1,79 @@
+.post-listing-container {
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.usc-color {
+    color: #990000;
+}
+
+.usc-button {
+    background-color: #990000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.usc-button:hover {
+    background-color: #cc0000;
+}
+
+.post-listing-form .form-group {
+    margin-bottom: 50px;
+}
+
+.post-listing-form label {
+    display: block;
+    margin-bottom: 8px; 
+    font-weight: bold;
+}
+
+.post-listing-form input,
+.post-listing-form select,
+.post-listing-form textarea {
+    width: 100%;
+    padding: 10px; 
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s, box-shadow 0.3s; 
+}
+
+.post-listing-form input:hover,
+.post-listing-form select:hover,
+.post-listing-form textarea:hover {
+    border-color: #990000;
+    box-shadow: 0 0 5px rgba(153, 0, 0, 0.5); 
+}
+
+.post-listing-form textarea {
+    resize: vertical;
+}
+
+.post-listing-form input[type="file"] {
+    padding: 3px;
+}
+
+.supplemental-images-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.thumbnail-preview {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.thumbnail-preview-container {
+    margin-bottom: 10px;
+}

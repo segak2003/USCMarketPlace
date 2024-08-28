@@ -1,0 +1,111 @@
+p, h1 {
+    font-family:"SF Pro Text", -apple-system, Helvetica, Arial, "Segoe UI", Roboto, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.search-results {
+    padding: 4%;
+}
+
+.search-results h1 {
+    margin-bottom: 10px;
+}
+
+.search-results p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #555;
+}
+
+.results-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3%;
+}
+
+.search-header {
+    display: flex;
+    white-space: nowrap;
+    flex-direction: row;
+    margin: 3%;
+    padding-right: 1%;
+    margin-bottom: 4%;;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filter-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.listing-card {
+    text-decoration: none;
+    padding: 16px;
+    width: calc(24% - 20px);
+    box-sizing: border-box;
+}
+
+.listing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-image { 
+    object-fit: cover;
+    width: 100%;
+    height: 66%;
+    max-width: 350px;
+    max-height: 350px;
+    min-width: 100px;
+    padding-bottom: 4%;
+}
+
+.listing-age p {
+    color:#616060;
+    font-size: 11px;
+    border-bottom: 1px solid #000000;
+    padding-bottom: 6%;
+}
+
+.listing-title p {
+    font-weight:bolder;
+}
+
+.listing-cost p {
+    font-weight: bold;
+    color: #000000;
+}
+
+@media (max-width: 1200px) {
+    .listing-card {
+        width: calc(32% - 20px); 
+    }
+}
+
+@media (max-width: 900px) {
+    .listing-card {
+        width: calc(48% - 20px); 
+    }
+}
+
+@media (max-width: 600px) {
+    .listing-card {
+        width: calc(98% - 20px); 
+    }
+}
+
+.filter-container {
+    padding-left: 19%;
+    display: flex;
+    align-items: center;
+}
+
+.search-description {
+    padding-right: 31%;
+}
+
+#category-select {
+    padding: 5px;
+    margin-left: 10px;
+    font-size: 16px;
+}
