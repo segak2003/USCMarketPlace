@@ -52,8 +52,7 @@ app.use(cors({
 
 app.use(cookieParser());
 
-mongoose.connect(MONGODB_CONNECTION);
-
+mongoose.connect(process.env.MONGODB_CONNECTION);
 
 const authMiddleware = (req, res, next) => {
     const token = req.cookies.token;
