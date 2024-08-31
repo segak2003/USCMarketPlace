@@ -77,13 +77,13 @@ const UserProfilePage = () => {
     
     const handleListingClick = (listing) => {
         if (editMode && !deleteMode) {
-            // Show component
             showEditComponent(listing);
-        } else if (deleteMode && !editMode) {
+        }
+        else if (deleteMode && !editMode) {
             removeListing(listing._id);
-        } else {
-            console.log("ID:   ", listing._id);
-            navigate(`/profile/username/listing/${listing._id}`);
+        }
+        else {
+            navigate(`listing/${listing._id}`);
         }
     };
 

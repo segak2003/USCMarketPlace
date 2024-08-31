@@ -35,7 +35,7 @@
 .search-bar {
     padding: 8px 8px 9px 42px;
     background-color: #990000;
-    border: 3px solid #FFCC00;
+    border: 2px solid #FFCC00;
     border-radius: 50px;
     width: 100%;
     min-width: 130px;
@@ -67,17 +67,26 @@
 
 .search-bar:focus {
     outline: 2px solid #FFCC00;
+    background-color:#880202;
 }
 
 .sellButton, .shopButton, .logButton, .signupButton {
-    padding: 8px 20px;
-    border: 3px solid #FFCC00;
+    padding: 8px 5%;
+    border: 2px solid #FFCC00;
     background-color:#990000; 
     color: #FFCC00;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
     white-space: nowrap;
+}
+
+.sellButton:hover, .search-bar:hover, .shopButton:hover, .logButton:hover, .signupButton:hover {
+    background-color:#880202; 
+}
+
+.sellButton, .shopButton, .signupButton {
+    margin-right: 6px;
 }
 
 .profile-button img {
@@ -85,8 +94,8 @@
     height: 44px;
 }
 
-.buttonContainer {
+.button-container {
     display: flex;
     justify-content: space-between;
-    width: 35%;
+    width: 37%;
 }

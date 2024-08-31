@@ -62,7 +62,7 @@ function Header() {
                     <img src={"/x.png"} alt="clear" />
                 </div>
             </div>
-            <div className="buttonContainer">
+            <div className="button-container">
                 <button onClick={handleSellClick} className="sellButton">Sell</button>
                 <Link to="/ShopListings" className="shopButton">Shop</Link>
                 {currentUser
