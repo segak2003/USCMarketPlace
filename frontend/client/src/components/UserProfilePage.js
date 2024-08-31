@@ -16,11 +16,12 @@ const UserProfilePage = () => {
     const [selectedListing, setSelectedListing] = useState(null); 
     const [message, setMessage] = useState(null); 
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/user', { withCredentials: true });
+                const response = await axios.get(`${API_URL}/user`, { withCredentials: true });
                 const user = response.data;
                 setUserDetails(user);
 
@@ -28,7 +29,7 @@ const UserProfilePage = () => {
                 if (userListingData.size > 0) {
                     const userListings = Array.from(userListingData.values());
 
-                    const listingsWithUrlsResponse = await axios.post('http://localhost:5000/make-presignedURLs', { listings: userListings }, { withCredentials: true });
+                    const listingsWithUrlsResponse = await axios.post(`${API_URL}/make-presignedURLs`, { listings: userListings }, { withCredentials: true });
                     setListings(listingsWithUrlsResponse.data);
                 }
             }
@@ -41,7 +42,7 @@ const UserProfilePage = () => {
 
     const removeListing = async (listingId) => {
         try {
-            const response = await axios.post('http://localhost:5000/remove-listing', {
+            const response = await axios.post(`${API_URL}/remove-listing`, {
                 listingId: listingId,
                 userId: userDetails._id
             }, { withCredentials: true });

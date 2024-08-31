@@ -24,11 +24,12 @@ function SellPage() {
     const [showError, setShowError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/categories');
+                const response = await axios.get(`${API_URL}/categories`);
                 setCategories(response.data);
             } catch (error) {
                 console.error('Error fetching categories:', error);
@@ -119,7 +120,7 @@ function SellPage() {
         }
 
         try {
-            const response = await axios.post('http://localhost:5000/addlisting', data, {
+            const response = await axios.post(`${API_URL}/addlisting`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

@@ -17,6 +17,7 @@ function DisplayListing() {
     const [viewerIsSeller, setViewerIsSeller] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [seller, setSeller] = useState(null);
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const showMessageBar = () => {
         if (!currentUser) {
@@ -41,7 +42,7 @@ function DisplayListing() {
     const sendMessage = async () => {
         if (message.trim() === "") return;
         try {
-            await axios.post('http://localhost:5000/sendMessage', { 
+            await axios.post(`${API_URL}/sendMessage`, { 
                 content: message, 
                 listingId: listing._id,
                 recipientId: listing.seller
@@ -57,17 +58,17 @@ function DisplayListing() {
     useEffect(() => {
         const fetchListingAndUser = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/listing/${id}`);
+                const response = await axios.get(`${API_URL}/listing/${id}`);
                 const { thumbnailUrl, supplementalImagesUrls, ...rest } = response.data;
                 setListing({ ...rest, thumbnailUrl, supplementalImagesUrls });
                 setNumLikes(rest.numLikes);
     
-                const sellerResponse = await axios.post('http://localhost:5000/get-seller-details', { seller: rest.seller }, { withCredentials: true });
+                const sellerResponse = await axios.post(`${API_URL}/get-seller-details`, { seller: rest.seller }, { withCredentials: true });
                 setSeller(sellerResponse.data);
                 if (currentUser) {
                     setViewerIsSeller(rest.seller === currentUser._id);
     
-                    const userResponse = await axios.get('http://localhost:5000/user', { withCredentials: true });
+                    const userResponse = await axios.get(`${API_URL}/user`, { withCredentials: true });
                     const userLikes = new Set(userResponse.data.likedListings || []);
     
                     setIsLiked(userLikes.has(rest._id));
@@ -91,10 +92,10 @@ function DisplayListing() {
 
         try {
             if (isLiked) {
-                await axios.post('http://localhost:5000/unlike', { listingId: listing._id }, { withCredentials: true });
+                await axios.post(`${API_URL}/unlike`, { listingId: listing._id }, { withCredentials: true });
                 setNumLikes(numLikes - 1);
             } else {
-                await axios.post('http://localhost:5000/like', { listingId: listing._id }, { withCredentials: true });
+                await axios.post(`${API_URL}/like`, { listingId: listing._id }, { withCredentials: true });
                 setNumLikes(numLikes + 1);
             }
             setIsLiked(!isLiked);

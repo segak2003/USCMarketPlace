@@ -9,12 +9,12 @@ function SellerProfile() {
     const navigate = useNavigate();
     const [sellerDetails, setSellerDetails] = useState({});
     const [listings, setListings] = useState([]);
-
+    const API_URL = process.env.REACT_APP_API_URL;
     useEffect(() => {
         const fetchUserData = async () => {
             try {
                 console.log("sellerid: ", sellerId.userId);
-                const response = await axios.post('http://localhost:5000/get-seller-details', { seller: sellerId.userId }, { withCredentials: true });
+                const response = await axios.post(`${API_URL}/get-seller-details`, { seller: sellerId.userId }, { withCredentials: true });
           
                 const user = response.data;
                 setSellerDetails(user);
@@ -31,7 +31,7 @@ function SellerProfile() {
                     
                     const userListings = Array.from(userListingData.values());
 
-                    const listingsWithUrlsResponse = await axios.post('http://localhost:5000/make-presignedURLs', { listings: userListings }, { withCredentials: true });
+                    const listingsWithUrlsResponse = await axios.post(`${API_URL}/make-presignedURLs`, { listings: userListings }, { withCredentials: true });
                     console.log("response: ", listingsWithUrlsResponse.data);
                     setListings(listingsWithUrlsResponse.data);
                     console.log("listings: ", listings);

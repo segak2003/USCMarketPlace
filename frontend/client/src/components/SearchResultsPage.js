@@ -10,14 +10,15 @@ function SearchResultsPage() {
     const [selectedCategory, setSelectedCategory] = useState('All');
     const location = useLocation();
     const query = new URLSearchParams(location.search).get('query');
-
+    const API_URL = process.env.REACT_APP_API_URL;
+    
     useEffect(() => {
         const fetchSearchResults = async () => {
             if (!query) return;
     
             try {
                 const categoryParam = selectedCategory !== 'All' ? `&category=${selectedCategory}` : '';
-                const response = await axios.get(`http://localhost:5000/search?query=${query}${categoryParam}`);
+                const response = await axios.get(`${API_URL}/search?query=${query}${categoryParam}`);
                 setSearchResults(response.data);
             }
             catch (error) {
@@ -27,7 +28,7 @@ function SearchResultsPage() {
     
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/categories');
+                const response = await axios.get(`${API_URL}/categories`);
                 setCategories(['All', ...response.data]); // Add "All" as the default option
             }
             catch (error) {

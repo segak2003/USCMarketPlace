@@ -9,11 +9,12 @@ function HomePage() {
     const [topListings, setTopListings] = useState([]); 
     const { currentUser } = useAuth();
     const navigate = useNavigate();
-
+    const API_URL = process.env.REACT_APP_API_URL;
+    
     useEffect(() => {
         const fetchTopListings = async () => {
             try {
-                const response = await fetch('http://localhost:5000/top-listings');
+                const response = await fetch(`${API_URL}/top-listings`);
                 const data = await response.json();
                 setTopListings(data);
             }

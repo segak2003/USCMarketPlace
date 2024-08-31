@@ -6,14 +6,15 @@ import { Link } from 'react-router-dom';
 
 const LikesPage = () => {
     const [likedListings, setLikedListings] = useState([]);
+    const API_URL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         const fetchLikedListings = async () => {
             try {
-                const userResponse = await axios.get('http://localhost:5000/user', { withCredentials: true });
+                const userResponse = await axios.get(`${API_URL}/user`, { withCredentials: true });
                 const userId = userResponse.data._id;
 
-                const likedListingsResponse = await axios.get(`http://localhost:5000/liked-listings/${userId}`, { withCredentials: true });
+                const likedListingsResponse = await axios.get(`${API_URL}/liked-listings/${userId}`, { withCredentials: true });
                 setLikedListings(likedListingsResponse.data);
             }
             catch (error) {
@@ -26,7 +27,7 @@ const LikesPage = () => {
 
     const unlikeListing = async (listingId) => {
         try {
-            await axios.post(`http://localhost:5000/unlike`, { listingId }, { withCredentials: true });
+            await axios.post(`${API_URL}/unlike`, { listingId }, { withCredentials: true });
             setLikedListings(prevListings => prevListings.filter(listing => listing._id !== listingId));
         }
         catch (error) {

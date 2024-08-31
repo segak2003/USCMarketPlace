@@ -11,10 +11,11 @@ const Profile = () => {
     const [profilePicture, setProfilePicture] = useState(defaultPic);
     const [pview, setpview] = useState(null);
     const [fetchTrigger, setFetchTrigger] = useState(0); // State to trigger useEffect
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const fetchUserProfile = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/user', { withCredentials: true });
+            const response = await axios.get(`${API_URL}/user`, { withCredentials: true });
             setProfilePicture(response.data.profilePicture || defaultPic);
         }
         catch (error) {
@@ -39,7 +40,7 @@ const Profile = () => {
             try {
                 const formData = new FormData();
                 formData.append("profilePicture", dataURItoBlob(pview));
-                const response = await axios.post('http://localhost:5000/upload-profile-picture', formData, {
+                const response = await axios.post(`${API_URL}/upload-profile-picture`, formData, {
                     withCredentials: true,
                     headers: {
                         'Content-Type': 'multipart/form-data'

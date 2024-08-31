@@ -10,8 +10,8 @@ const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const defaultPic = 'https://uscmbucket.s3.us-west-2.amazonaws.com/user.png';
 const path = require("path");
-const _dirname = path.dirname("");
-const buildPath = path.join(_dirname, "../frontend/client/build");
+//const _dirname = path.dirname("");
+//const buildPath = path.join(__dirname, "../frontend/client/build");
 
 dotenv.config();
 
@@ -19,7 +19,14 @@ const app = express();
 
 const port = process.env.PORT || 4000;
 
-app.use(express.static(buildPath));
+app.use(express.json());
+
+app.use(cors({
+    origin: APP_URL,
+    credentials: true
+}));
+
+/*app.use(express.static(buildPath));
 
 app.get("/*", function(req, res) {
     
@@ -33,6 +40,12 @@ app.get("/*", function(req, res) {
     );
 });
 
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
+*/
+
 const bcrypt = require('bcrypt');
 
 const s3 = new S3Client({
@@ -42,13 +55,6 @@ const s3 = new S3Client({
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
     }
 });
-
-
-
-app.use(cors({
-    origin: 'http://localhost:3000',
-    credentials: true
-}));
 
 app.use(cookieParser());
 
@@ -75,7 +81,7 @@ app.get("/", (req, res) => {
     res.send("Express App is Running")
 })
 
-app.listen(port, (error) => {
+app.listen(port, '0.0.0.0', (error) => {
     if(!error) {
         console.log(`Server running on Port ${port}`)
     }

@@ -9,15 +9,16 @@ function MessagesPage() {
     const [conversations, setConversations] = useState([]);
     const [selectedConversation, setSelectedConversation] = useState(null);
     const [newMessage, setNewMessage] = useState("");
+    const API_URL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         const fetchConversations = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/conversations', { withCredentials: true });
+                const response = await axios.get(`${API_URL}/conversations`, { withCredentials: true });
                 setConversations(response.data);
 
                 const thumbnails = response.data.map(convo => convo.listing.thumbnail);
-                const presignedResponse = await axios.post('http://localhost:5000/generatePresignedUrls', { thumbnails });
+                const presignedResponse = await axios.post(`${API_URL}/generatePresignedUrls`, { thumbnails });
 
                 const updatedConversations = response.data.map(convo => {
                     const presignedThumbnail = presignedResponse.data.find(p => p.originalUrl === convo.listing.thumbnail);
@@ -85,7 +86,7 @@ function MessagesPage() {
         if (!newMessage.trim() || !selectedConversation) return;
 
         try {
-            const response = await axios.post('http://localhost:5000/sendMessage', {
+            const response = await axios.post(`${API_URL}/sendMessage`, {
                 content: newMessage,
                 listingId: selectedConversation.listing._id,
                 recipientId: selectedConversation.participants.find(p => p._id !== currentUser._id)._id,

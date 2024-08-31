@@ -15,11 +15,12 @@ const EditListingComponent = ({ listing, userId, onClose, onListingUpdated, onSh
     const [categories, setCategories] = useState([]);
     const [mode, setMode] = useState(''); // '' | 'remove' | 'add'
     const [imagesToRemove, setImagesToRemove] = useState([]);
+    const API_URL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/categories');
+                const response = await axios.get(`${API_URL}/categories`);
                 setCategories(response.data);
             } catch (error) {
                 console.error('Error fetching categories:', error);
@@ -53,7 +54,7 @@ const EditListingComponent = ({ listing, userId, onClose, onListingUpdated, onSh
         }
 
         try {
-            const response = await axios.post('http://localhost:5000/edit-listing', formData, { withCredentials: true });
+            const response = await axios.post(`${API_URL}/edit-listing`, formData, { withCredentials: true });
             onListingUpdated(response.data.listing);
             onClose();
             onShowMessage('success', 'Listing updated successfully!');

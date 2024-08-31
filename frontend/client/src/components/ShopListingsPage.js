@@ -8,12 +8,13 @@ function ShopListingsPage () {
     const [listings, setListings] = useState([]);
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('All');
+    const API_URL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         const fetchListings = async () => {
             try {
                 const categoryParam = selectedCategory !== 'All' ? `?category=${selectedCategory}` : '';
-                const response = await axios.get(`http://localhost:5000/all-listings${categoryParam}`);
+                const response = await axios.get(`${API_URL}/all-listings${categoryParam}`);
                 setListings(response.data);
             }
             catch (error) {
@@ -23,7 +24,7 @@ function ShopListingsPage () {
 
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/categories');
+                const response = await axios.get(`${API_URL}/categories`);
                 setCategories(['All', ...response.data]); // Add "All" as the default option
             }
             catch (error) {
