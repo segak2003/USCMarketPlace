@@ -10,8 +10,6 @@ const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const defaultPic = 'https://uscmbucket.s3.us-west-2.amazonaws.com/user.png';
 const path = require("path");
-//const _dirname = path.dirname("");
-//const buildPath = path.join(__dirname, "../frontend/client/build");
 
 dotenv.config();
 
@@ -26,25 +24,6 @@ app.use(cors({
     credentials: true
 }));
 
-/*app.use(express.static(buildPath));
-
-app.get("/*", function(req, res) {
-    
-    res.sendFile(
-        path.join(buildPath, "index.html"),
-        function (err) {
-            if (err) {
-                res.status(500).send(err);
-            }
-        }
-    );
-});
-
-app.use(cors({
-    origin: 'http://localhost:3000',
-    credentials: true
-}));
-*/
 
 const bcrypt = require('bcrypt');
 
