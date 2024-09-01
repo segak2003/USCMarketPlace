@@ -11,13 +11,16 @@ const cookieParser = require('cookie-parser');
 const defaultPic = 'https://uscmbucket.s3.us-west-2.amazonaws.com/user.png';
 const path = require("path");
 
+
 dotenv.config();
 
 const app = express();
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 6000;
 
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname, '../frontend/client/build')));
 
 app.use(cors({
     origin: process.env.APP_URL,
@@ -867,4 +870,9 @@ app.get('/api/listing/:id', async (req, res) => {
         console.error('Error fetching listing:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
+});
+
+
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/client/build/index.html'));
 });
