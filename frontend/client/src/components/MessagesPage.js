@@ -92,7 +92,7 @@ function MessagesPage() {
                 recipientId: selectedConversation.participants.find(p => p._id !== currentUser._id)._id,
             }, { withCredentials: true });
 
-            const updatedConversation = await axios.get(`http://localhost:5000/conversations/${response.data.conversation._id}`, { withCredentials: true });
+            const updatedConversation = await axios.get(`${API_URL}/conversations/${response.data.conversation._id}`, { withCredentials: true });
             setSelectedConversation(updatedConversation.data);
             setNewMessage("");
         } catch (error) {
@@ -114,7 +114,7 @@ function MessagesPage() {
                         key={conversation._id}
                         className={`conversation-item ${selectedConversation && selectedConversation._id === conversation._id ? 'selected' : ''}`}
                         onClick={async () => {
-                            const updatedConversation = await axios.get(`http://localhost:5000/conversations/${conversation._id}`, { withCredentials: true });
+                            const updatedConversation = await axios.get(`${API_URL}/conversations/${conversation._id}`, { withCredentials: true });
                             setSelectedConversation(updatedConversation.data);
                         }}
                     >
