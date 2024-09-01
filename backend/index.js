@@ -56,7 +56,7 @@ const authMiddleware = (req, res, next) => {
 
 
 
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
     res.send("Express App is Running")
 })
 
@@ -82,7 +82,7 @@ const upload = multer({
     })
 });
 
-app.post("/upload", upload.single("listing"), (req, res) => {
+app.post("/api/upload", upload.single("listing"), (req, res) => {
     res.json({
         success:1, 
         image_url: req.file.location
@@ -173,7 +173,7 @@ const Conversation = mongoose.model('Conversation', conversationSchema);
 
 
 
-app.post("/remove-listing", async (req, res) => {
+app.post("/api/remove-listing", async (req, res) => {
     
     const listingId = req.body.listingId;
     const userId = req.body.userId;
@@ -214,7 +214,7 @@ app.post("/remove-listing", async (req, res) => {
     }
 });
 
-app.post('/edit-listing', upload.fields([
+app.post('/api/edit-listing', upload.fields([
     { name: 'thumbnail', maxCount: 1 },
     { name: 'supplementalImages', maxCount: 10 }
 ]), async (req, res) => {
@@ -271,7 +271,7 @@ app.post('/edit-listing', upload.fields([
 });
 
 
-app.post("/make-presignedURLs", async (req, res) => {
+app.post("/api/make-presignedURLs", async (req, res) => {
     const { listings } = req.body;
 
     try {
@@ -301,7 +301,7 @@ app.post("/make-presignedURLs", async (req, res) => {
     }
 });
 
-app.get("/liked-listings/:userId", async (req, res) => {
+app.get("/api/liked-listings/:userId", async (req, res) => {
     const userId = req.params.userId;
 
     if (!mongoose.Types.ObjectId.isValid(userId)) {
@@ -334,7 +334,7 @@ app.get("/liked-listings/:userId", async (req, res) => {
 });
 
 
-app.get("/categories", (req, res) => {
+app.get("/api/categories", (req, res) => {
     const categories = ["Electronics", "Furniture", "Clothing", "Books", "Other"];
     res.json(categories);
 });
@@ -360,7 +360,7 @@ const userSchema = new mongoose.Schema({
 
 const Users = mongoose.model('User', userSchema);
 
-app.post("/signup", async (req, res) => {
+app.post("/api/signup", async (req, res) => {
 
     try {
         let check = await Users.findOne({ email: req.body.email });
@@ -399,7 +399,7 @@ app.post("/signup", async (req, res) => {
 });
 
 
-app.post("/login", async (req,res) => {
+app.post("/api/login", async (req,res) => {
 
     let user = await Users.findOne({ email:req.body.email });
    
@@ -425,7 +425,7 @@ app.post("/login", async (req,res) => {
     }
 });
 
-app.get("/user", authMiddleware, async (req, res) => {
+app.get("/api/user", authMiddleware, async (req, res) => {
     try {
         const user = await Users.findById(req.user.id);
 
@@ -454,7 +454,7 @@ app.get("/user", authMiddleware, async (req, res) => {
     }
 });
 
-app.post("/logout", async (req, res) => {
+app.post("/api/logout", async (req, res) => {
 
     res.clearCookie('token', {
         httpOnly: true,
@@ -465,7 +465,7 @@ app.post("/logout", async (req, res) => {
 });
 
 
-app.post("/like", authMiddleware, async (req, res) => {
+app.post("/api/like", authMiddleware, async (req, res) => {
     const userId = req.user.id;
     const { listingId } = req.body;
 
@@ -497,7 +497,7 @@ app.post("/like", authMiddleware, async (req, res) => {
 });
 
 
-app.post("/unlike", authMiddleware, async (req, res) => {
+app.post("/api/unlike", authMiddleware, async (req, res) => {
     const userId = req.user.id;
     const { listingId } = req.body;
 
@@ -528,7 +528,7 @@ app.post("/unlike", authMiddleware, async (req, res) => {
     }
 });
 
-app.post('/sendMessage', authMiddleware, async (req, res) => {
+app.post('/api/sendMessage', authMiddleware, async (req, res) => {
 
     const { content, listingId, recipientId } = req.body;
     const senderId = req.user.id;
@@ -571,7 +571,7 @@ app.post('/sendMessage', authMiddleware, async (req, res) => {
 });
 
 // endpoint to get all conversations where the user is a participant
-app.get('/conversations', authMiddleware, async (req, res) => {
+app.get('/api/conversations', authMiddleware, async (req, res) => {
     try {
         const userId = req.user.id;
         let conversations = await Conversation.find({ participants: userId })
@@ -595,7 +595,7 @@ app.get('/conversations', authMiddleware, async (req, res) => {
 });
 
 
-app.post("/generatePresignedUrls", async (req, res) => {
+app.post("/api/generatePresignedUrls", async (req, res) => {
     const { thumbnails } = req.body;
 
     try {
@@ -618,7 +618,7 @@ app.post("/generatePresignedUrls", async (req, res) => {
 });
 
 
-app.get('/conversations/:id', authMiddleware, async (req, res) => {
+app.get('/api/conversations/:id', authMiddleware, async (req, res) => {
     try {
         const conversationId = req.params.id;
         const conversation = await Conversation.findById(conversationId)
@@ -636,7 +636,7 @@ app.get('/conversations/:id', authMiddleware, async (req, res) => {
 
 
 
-app.post("/upload-profile-picture", authMiddleware, upload.single("profilePicture"), async (req, res) => {
+app.post("/api/upload-profile-picture", authMiddleware, upload.single("profilePicture"), async (req, res) => {
     const userId = req.user.id;
     const profilePictureUrl = req.file.location;
 
@@ -659,7 +659,7 @@ app.post("/upload-profile-picture", authMiddleware, upload.single("profilePictur
 });
 
 
-app.post("/update-user-listings", authMiddleware, async (req, res) => {
+app.post("/api/update-user-listings", authMiddleware, async (req, res) => {
     const userId = req.user.id;
     const newListing = req.body.listing;
     try {
@@ -686,7 +686,7 @@ const uploadMultiple = upload.fields([
     { name: 'supplementalImages', maxCount: 10 }
 ]);
 
-app.post("/addlisting", uploadMultiple, async (req, res) => {
+app.post("/api/addlisting", uploadMultiple, async (req, res) => {
    
     let thumbnail = req.files['thumbnail'] ? req.files['thumbnail'][0].location : "";
     let supplementalImages = req.files['supplementalImages'] ? req.files['supplementalImages'].map(file => file.location) : [];
@@ -725,7 +725,7 @@ app.post("/addlisting", uploadMultiple, async (req, res) => {
 });
 
 
-app.get("/all-listings", async (req, res) => {
+app.get("/api/all-listings", async (req, res) => {
     const category = req.query.category;
 
     try {
@@ -754,7 +754,7 @@ app.get("/all-listings", async (req, res) => {
 });
 
 
-app.get('/search', async (req, res) => {
+app.get('/api/search', async (req, res) => {
     const { query, category } = req.query;
 
     try {
@@ -791,7 +791,7 @@ app.get('/search', async (req, res) => {
 });
 
 
-app.post('/get-seller-details', async (req, res) => {
+app.post('/api/get-seller-details', async (req, res) => {
     
     const sellerId = req.body.seller;
     
@@ -819,7 +819,7 @@ app.post('/get-seller-details', async (req, res) => {
 });
 
 
-app.get("/top-listings", async (req, res) => {
+app.get("/api/top-listings", async (req, res) => {
     try {
         // Find the top 5 listings sorted by number of likes in descending order
         let listings = await Listing.find().sort({ numLikes: -1 }).limit(4);
@@ -842,7 +842,7 @@ app.get("/top-listings", async (req, res) => {
 });
 
 
-app.get('/listing/:id', async (req, res) => {
+app.get('/api/listing/:id', async (req, res) => {
     try {
         const listing = await Listing.findById(req.params.id);
         if (!listing) {
