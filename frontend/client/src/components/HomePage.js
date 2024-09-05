@@ -96,8 +96,8 @@ function HomePage() {
                     </div>
                 </div>
                 <div className="cta-button-wrapper">
-                    <button onClick={() => (navigate('/ShopListings'))} className="cta-button">Browse Listings</button>
-                    <button onClick={handleSell} className="cta-button2">Sell an item</button>
+                    <button onClick={() => (navigate('/ShopListings'))} className="cta-button">Browse</button>
+                    <button onClick={handleSell} className="cta-button2">Sell</button>
                 </div>
                 
             </div>

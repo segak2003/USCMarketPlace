@@ -80,7 +80,7 @@ function SearchResultsPage() {
                         <h1>Search Results</h1>
                         <p>{searchResults.length} results found for "{query}"</p>
                     </div>
-                    <div className="filter-container">
+                    <div className="filter-container2">
                         <div className="filter-wrapper">
                             <label htmlFor="category-select">Filter by category:</label>
                             <select 

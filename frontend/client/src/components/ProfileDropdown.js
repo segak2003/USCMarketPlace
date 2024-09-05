@@ -8,17 +8,16 @@ function ProfileDropdown() {
     const navigate = useNavigate();
 
     const handleLogout = async () => {
-        console.log("entered logout handler");
         await logout();
         navigate('/');
     };
 
     return (
         <div className="layout">
-            <Link to={`/profile/${currentUser.username}`} className="dropdown-item">Profile</Link>
-            <Link to="/Likes" className="dropdown-item">Likes</Link>
-            <Link to="/Messages" className="dropdown-item">Messages</Link>
-            <button onClick={handleLogout} className="dropdown-item">Logout</button>
+            <Link to={`/profile/${currentUser.username}`} className="dropdown-item-top">Profile</Link>
+            <Link to="/Likes" className="dropdown-item-mid">Likes</Link>
+            <Link to="/Messages" className="dropdown-item-mid">Messages</Link>
+            <div onClick={handleLogout} className="dropdown-item-bottom">Logout</div>
         </div>
     );
 }

@@ -78,7 +78,8 @@
     --bg: #990000;
     --text-color: #fff;
     position: relative;
-    width: 15%;
+    width: 30%;
+    max-width: 162px;
     border: none;
     background: var(--bg);
     color: var(--text-color);
@@ -100,7 +101,8 @@
     --bg: #FFCC00;
     --text-color: #fff;
     position: relative;
-    width: 15%;
+    width: 30%;
+    max-width: 162px;
     border: none;
     background: var(--bg);
     color: var(--text-color);

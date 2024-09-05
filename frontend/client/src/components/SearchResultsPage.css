@@ -94,15 +94,19 @@ p, h1 {
     }
 }
 
-.filter-container {
-    padding-left: 19%;
+@media (max-width: 670px) {
+    .search-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+
+.filter-container2 {
     display: flex;
     align-items: center;
 }
 
-.search-description {
-    padding-right: 31%;
-}
 
 #category-select {
     padding: 5px;

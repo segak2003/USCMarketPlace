@@ -1,5 +1,6 @@
 .post-listing-container {
-    padding: 20px;
+    padding: 3%;
+    width: 80%;
     max-width: 900px;
     margin: auto;
 }

@@ -121,7 +121,7 @@ function SignUpPage() {
                     <Success message="Error with Signup" />
                 </div>
             )}
-            <div className="simpleHeader">
+            <div className="simple-header">
                     <Link rel="icon" to="/" className="logo2" sizes="2x2">
                         <img src="/USCMlogo2.png" alt="USCMlogo"/>
                     </Link>

@@ -81,6 +81,13 @@ p, h1 {
     color: #000000;
 }
 
+@media (max-width: 600px) {
+    .shop-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
 @media (max-width: 1200px) {
     .listing-card {
         width: calc(32% - 20px); 
@@ -97,17 +104,20 @@ p, h1 {
     .listing-card {
         width: calc(98% - 20px); 
     }
+
+    .filter-container {
+        padding: 0px;
+    }
+
+    
 }
 
 .filter-container {
-    padding-left: 25%;
     display: flex;
     align-items: center;
 }
 
-.description {
-    padding-right: 35%;
-}
+
 
 #category-select {
     padding: 5px;
