@@ -4,6 +4,7 @@ p, h1 {
 
 .shop-listings {
     padding: 4%;
+    background-color: #f8f8f8;
 }
 
 .shop-listings h1 {
@@ -36,6 +37,19 @@ p, h1 {
 .filter-wrapper {
     display: flex;
     flex-direction: column;
+}
+
+.filter {
+    border: none;
+    border-radius: 50px;
+    text-decoration: none;
+}
+
+.filter:focus, filter:active {
+    border: none;
+    border-radius: 50px;
+    outline: none;
+    text-decoration: none;
 }
 
 .listing-card {
@@ -107,9 +121,7 @@ p, h1 {
 
     .filter-container {
         padding: 0px;
-    }
-
-    
+    }    
 }
 
 .filter-container {

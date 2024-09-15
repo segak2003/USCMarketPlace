@@ -146,121 +146,123 @@ function SellPage() {
     return (
         <div>
             <Header />
-            <div className="post-listing-container">
-                <h1 className="usc-color">Post a New Listing</h1>
-                {showSuccess && <Success message="Listing posted successfully!" />}
-                {showError && <Error message={errorMessage} />}
-                <form onSubmit={submitHandler} className="post-listing-form">
-                    <div className="form-group">
-                        <label htmlFor="name" className="usc-color">Product Name</label>
-                        <input
-                            type="text"
-                            name="name"
-                            id="name"
-                            value={formData.name}
-                            onChange={changeHandler}
-                            required
-                            maxLength="50"
-                        />
-                        <small>{formData.name.length}/50</small>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="price" className="usc-color">Price</label>
-                        <input
-                            type="text"
-                            name="price"
-                            id="price"
-                            value={formData.price}
-                            onChange={changeHandler}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="category" className="usc-color">Category</label>
-                        <select
-                            name="category"
-                            id="category"
-                            value={formData.category}
-                            onChange={changeHandler}
-                            required
-                        >
-                            <option value="">Select a category</option>
-                            {categories.map((category, index) => (
-                                <option key={index} value={category}>{category}</option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="condition" className="usc-color">Condition</label>
-                        <select
-                            name="condition"
-                            id="condition"
-                            value={formData.condition}
-                            onChange={changeHandler}
-                            required
-                        >
-                            <option value="">Select condition</option>
-                            <option value="New">New</option>
-                            <option value="Pre-owned">Pre-owned</option>
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="description" className="usc-color">Description</label>
-                        <textarea
-                            name="description"
-                            id="description"
-                            value={formData.description}
-                            onChange={changeHandler}
-                            required
-                            maxLength="500"
-                        ></textarea>
-                        <small>{formData.description.length}/500</small>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="thumbnail" className="usc-color">Thumbnail Image</label>
-                        <input
-                            type="file"
-                            name="thumbnail"
-                            id="thumbnail"
-                            onChange={fileChangeHandler}
-                            accept="image/*"
-                            required
-                        />
-                    </div>
-                    {thumbnailPreview && (
-                        <div className="thumbnail-preview-container">
-                            <img
-                                src={thumbnailPreview}
-                                alt="Thumbnail Preview"
-                                className="thumbnail-preview"
-                                onClick={removeThumbnail}
+            <div className="background">
+                <div className="post-listing-container">
+                    <h1 className="usc-color">Post a New Listing</h1>
+                    {showSuccess && <Success message="Listing posted successfully!" />}
+                    {showError && <Error message={errorMessage} />}
+                    <form onSubmit={submitHandler} className="post-listing-form">
+                        <div className="form-group">
+                            <label htmlFor="name" className="usc-color">Product Name</label>
+                            <input
+                                type="text"
+                                name="name"
+                                id="name"
+                                value={formData.name}
+                                onChange={changeHandler}
+                                required
+                                maxLength="50"
+                            />
+                            <small>{formData.name.length}/50</small>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="price" className="usc-color">Price</label>
+                            <input
+                                type="text"
+                                name="price"
+                                id="price"
+                                value={formData.price}
+                                onChange={changeHandler}
+                                required
                             />
                         </div>
-                    )}
-                    <div className="form-group">
-                        <label htmlFor="supplementalImages" className="usc-color">Supplemental Images (up to 10)</label>
-                        <input
-                            type="file"
-                            name="supplementalImages"
-                            id="supplementalImages"
-                            onChange={multipleFileChangeHandler}
-                            accept="image/*"
-                            multiple
-                        />
-                    </div>
-                    <div className="supplemental-images-preview">
-                        {formData.supplementalImages.length > 0 && formData.supplementalImages.map((file, index) => (
-                            <img
-                                key={index}
-                                src={URL.createObjectURL(file)}
-                                alt={`Supplemental ${index + 1}`}
-                                className="thumbnail-preview"
-                                onClick={() => removeSupplementalImage(index)}
+                        <div className="form-group">
+                            <label htmlFor="category" className="usc-color">Category</label>
+                            <select
+                                name="category"
+                                id="category"
+                                value={formData.category}
+                                onChange={changeHandler}
+                                required
+                            >
+                                <option value="">Select a category</option>
+                                {categories.map((category, index) => (
+                                    <option key={index} value={category}>{category}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="condition" className="usc-color">Condition</label>
+                            <select
+                                name="condition"
+                                id="condition"
+                                value={formData.condition}
+                                onChange={changeHandler}
+                                required
+                            >
+                                <option value="">Select condition</option>
+                                <option value="New">New</option>
+                                <option value="Pre-owned">Pre-owned</option>
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="description" className="usc-color">Description</label>
+                            <textarea
+                                name="description"
+                                id="description"
+                                value={formData.description}
+                                onChange={changeHandler}
+                                required
+                                maxLength="500"
+                            ></textarea>
+                            <small>{formData.description.length}/500</small>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="thumbnail" className="usc-color">Thumbnail Image</label>
+                            <input
+                                type="file"
+                                name="thumbnail"
+                                id="thumbnail"
+                                onChange={fileChangeHandler}
+                                accept="image/*"
+                                required
                             />
-                        ))}
-                    </div>
-                    <button type="submit" className="usc-button">Post Listing</button>
-                </form>
+                        </div>
+                        {thumbnailPreview && (
+                            <div className="thumbnail-preview-container">
+                                <img
+                                    src={thumbnailPreview}
+                                    alt="Thumbnail Preview"
+                                    className="thumbnail-preview"
+                                    onClick={removeThumbnail}
+                                />
+                            </div>
+                        )}
+                        <div className="form-group">
+                            <label htmlFor="supplementalImages" className="usc-color">Supplemental Images (up to 10)</label>
+                            <input
+                                type="file"
+                                name="supplementalImages"
+                                id="supplementalImages"
+                                onChange={multipleFileChangeHandler}
+                                accept="image/*"
+                                multiple
+                            />
+                        </div>
+                        <div className="supplemental-images-preview">
+                            {formData.supplementalImages.length > 0 && formData.supplementalImages.map((file, index) => (
+                                <img
+                                    key={index}
+                                    src={URL.createObjectURL(file)}
+                                    alt={`Supplemental ${index + 1}`}
+                                    className="thumbnail-preview"
+                                    onClick={() => removeSupplementalImage(index)}
+                                />
+                            ))}
+                        </div>
+                        <button type="submit" className="usc-button">Post Listing</button>
+                    </form>
+                </div>
             </div>
         </div>
     );

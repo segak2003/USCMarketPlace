@@ -10,17 +10,6 @@
     gap: 20px;
 }
 
-.listing-item {
-    position: relative;
-    border: 1px solid #ddd;
-    padding: 10px;
-    width: calc(33.333% - 20px);
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-}
-
 .listing-thumbnail {
     width: 100%;
     height: auto;

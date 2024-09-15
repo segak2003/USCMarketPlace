@@ -80,6 +80,7 @@ function ShopListingsPage () {
                             <label htmlFor="category-select">Filter by category:</label>
                             <select 
                                 id="category-select" 
+                                className="filter"
                                 value={selectedCategory} 
                                 onChange={(e) => setSelectedCategory(e.target.value)}
                             >

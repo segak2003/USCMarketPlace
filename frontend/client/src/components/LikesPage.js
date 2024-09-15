@@ -68,38 +68,40 @@ const LikesPage = () => {
     return (
         <div>
             <Header />
-            <div className="likes-page">
-                <h2>Liked Listings</h2>
-                <p>Click on heart icons to unlike the listing</p>
-                {likedListings.length > 0 ? (
-                    <div className="listings-grid">
-                        {likedListings.slice().reverse().map((listing) => (
-                            <Link key={listing._id} to={`/listing/${listing._id}`} className="listing-card">
-                                <img src={listing.thumbnailUrl} alt={listing.name} className="card-image"/>
-                                <div className="listing-age">
-                                    <p>{timeAgo(listing.date)}</p>
-                                </div>
-                                <div className="listing-title" >
-                                    <p>{listing.name}</p>
-                                </div>
-                                <div className="cost-unlike-container">
-                                    <div className="listing-cost">
-                                        <p>${listing.price}</p>
+            <div className="background" >
+                <div className="likes-page">
+                    <h2>Liked Listings</h2>
+                    <p>Click on heart icons to unlike the listing</p>
+                    {likedListings.length > 0 ? (
+                        <div className="listings-grid">
+                            {likedListings.slice().reverse().map((listing) => (
+                                <Link key={listing._id} to={`/listing/${listing._id}`} className="listing-card">
+                                    <img src={listing.thumbnailUrl} alt={listing.name} className="card-image"/>
+                                    <div className="listing-age">
+                                        <p>{timeAgo(listing.date)}</p>
                                     </div>
-                                    <img 
-                                    src="/liked-icon.png" 
-                                    alt="Unlike" 
-                                    className="unlike-icon" 
-                                    onClick={() => unlikeListing(listing._id)} 
-                                    style={{ cursor: 'pointer' }} 
-                                    />
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-                ) : (
-                    <p>No liked listings found.</p>
-                )}
+                                    <div className="listing-title" >
+                                        <p>{listing.name}</p>
+                                    </div>
+                                    <div className="cost-unlike-container">
+                                        <div className="listing-cost">
+                                            <p>${listing.price}</p>
+                                        </div>
+                                        <img 
+                                        src="/liked-icon.png" 
+                                        alt="Unlike" 
+                                        className="unlike-icon" 
+                                        onClick={() => unlikeListing(listing._id)} 
+                                        style={{ cursor: 'pointer' }} 
+                                        />
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    ) : (
+                        <p>No liked listings found.</p>
+                    )}
+                </div>
             </div>
         </div>
     );

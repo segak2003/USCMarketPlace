@@ -105,7 +105,7 @@ function SellerProfile() {
                     <div className="display">
                         <div className="listings-grid">
                             {listings.slice().reverse().map((listing, index) => (
-                                <Link to={`/listing/${listing._id}`} key={index} className="listing-item">
+                                <Link to={`/listing/${listing._id}`} key={index} className="listing-card">
                                     <img src={listing.thumbnailUrl} alt={listing.name} className="card-image" />
                                     <div className="listing-info">
                                         <div className="listing-age">

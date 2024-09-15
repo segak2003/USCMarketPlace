@@ -1,3 +1,7 @@
+.background {
+    background-color: #f8f8f8;
+}
+
 .post-listing-container {
     padding: 3%;
     width: 80%;
@@ -38,16 +42,17 @@
 .post-listing-form textarea {
     width: 100%;
     padding: 10px; 
-    border: 1px solid #ddd;
+    border: none;
     border-radius: 4px;
     font-size: 14px;
     transition: border-color 0.3s, box-shadow 0.3s; 
+    border-radius: 50px;
 }
 
 .post-listing-form input:hover,
 .post-listing-form select:hover,
 .post-listing-form textarea:hover {
-    border-color: #990000;
+    border: none;
     box-shadow: 0 0 5px rgba(153, 0, 0, 0.5); 
 }
 
@@ -77,4 +82,12 @@
 
 .thumbnail-preview-container {
     margin-bottom: 10px;
+}
+
+input#thumbnail {
+    border-radius: 0px;
+}
+
+input#supplementalImages {
+    border-radius: 0px;
 }
