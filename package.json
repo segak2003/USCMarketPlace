@@ -23,5 +23,8 @@
   "dependencies": {
     "bootstrap": "5.3",
     "react-avatar-edit": "^1.2.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }

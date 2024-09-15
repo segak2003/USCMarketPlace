@@ -1,6 +1,6 @@
-.messages-page {
+.conversations-wrapper {
     display: flex;
-    height: 100vh;
+    height: 87vh;
 }
 
 .conversation-item {

@@ -163,7 +163,7 @@ function DisplayListing() {
                     <div className="listing-detail-info">
                         <div className="name-and-like-container">
                             <div className="listing-name">
-                                <h2>{listing.name}</h2>
+                                <p>{listing.name}</p>
                             </div>
                             <div className="like-container">
                                 <img 

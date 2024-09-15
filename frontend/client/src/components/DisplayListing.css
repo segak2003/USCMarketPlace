@@ -1,5 +1,6 @@
 .listing-detail {
-    max-width: 82%;
+    max-width: 1250px;
+    width: 97%;
     margin: 0 auto;
     padding: 16px;
     display: flex;
@@ -19,8 +20,7 @@
 }
 
 .right-half {
-    width: 40%;
-    padding-right: 2%;
+    width: 45%;
     position: relative;
 }
 
@@ -36,6 +36,25 @@
     object-fit: contain;
     display: block;
     position: relative;
+}
+
+@media (max-width: 730px) {
+
+    .listing-detail {
+        width: 90%;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .left-half {
+        width: 100%;
+        position: relative;
+    }
+
+    .right-half {
+        width: 100%;
+        position: relative;
+    }
 }
 
 .carousel-button {
@@ -67,15 +86,9 @@
     justify-content: center;
 }
 
-.listing-detail-info h1 {
-    margin: 0 0 24px 0;
-    padding-top: 10px;
-    font-size: 2.5em;
-    color: #333;
-}
 
 .listing-price p {
-    font-size: 1.5em;
+    font-size: 1.3em;
     color: #000000;
     margin: 8px 0;
     padding-bottom: 18px;
@@ -136,6 +149,8 @@
 
 .listing-name {
     width: 90%;
+    font-size: 1.7em;
+    color: #000000;
 }
 
 .name-and-like-container {
