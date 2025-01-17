@@ -10,6 +10,7 @@ const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const defaultPic = 'https://uscmbucket.s3.us-west-2.amazonaws.com/user.png';
 const path = require("path");
+const nodemailer = require('nodemailer');
 
 
 dotenv.config();
@@ -57,7 +58,13 @@ const authMiddleware = (req, res, next) => {
     }
 };
 
-
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_ADDRESS,
+        pass: process.env.EMAIL_PASSWORD
+    }
+})
 
 app.get("/api", (req, res) => {
     res.send("Express App is Running")
@@ -372,28 +379,30 @@ app.post("/api/signup", async (req, res) => {
         return res.status(400).json({ success: false, errors: "An account already exists with this email" });
     }
 
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
 
-    const user = new Users({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        username: req.body.username,
-        email: req.body.email,
-        password: hashedPassword,
-    });
+        const user = new Users({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            username: req.body.username,
+            email: req.body.email,
+            password: hashedPassword,
+        });
 
-    await user.save();
+        await user.save();
 
-    const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET);
-            
-    res.cookie('token', token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'Strict',
-    });
+        const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET);
+                
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'Strict',
+        });
 
-    res.json({ success: true });
+        await sendWelcomeEmail(user.email, user.firstName);
+        
+        res.json({ success: true });
     }
     catch (error) {
         console.error("Error with signup", error);
@@ -416,7 +425,6 @@ app.post("/api/login", async (req,res) => {
                 secure: process.env.NODE_ENV === 'production',
                 sameSite: 'Strict',
             });
-
             res.json({ success: true});
         }
         else {
@@ -531,6 +539,56 @@ app.post("/api/unlike", authMiddleware, async (req, res) => {
     }
 });
 
+/**
+ * Send a welcome email to new users upon successful sign-up.
+ * @param {string} to - Recipient's email address.
+ * @param {string} firstName - Recipient's first name.
+ */
+const sendWelcomeEmail = async (to, firstName) => {
+
+    try {
+        const mailOptions = {
+            from: process.env.EMAIL_ADDRESS,
+            to,
+            subject: 'Welcome to USC TrojanTrade!',
+            text: `Hi ${firstName},\n\nThank you for signing up for Trojan Trade! We're excited to have you on board.\n\nBest regards,\nTrojan Trade Team`,
+            html: `<p>Hi ${firstName},</p><p>Thank you for signing up for <strong>Trojan Trade</strong>! We're excited to have you on board.</p><p>Best regards,<br/>Trojan Trade Team</p>`,
+        };
+
+        await transporter.sendMail(mailOptions);
+        console.log('Welcome email sent');
+    }
+    catch (error) {
+        console.error('Failed to send welcome email:', error);
+    }
+};
+
+/**
+ * Send a notification email to recipients when they receive a new message.
+ * @param {string} to - Recipient's email address.
+ * @param {string} senderUsername - username of the sender.
+ * @param {string} listingName - Name of the listing related to the message.
+ */
+const sendNotificationEmail = async (to, senderUsername, listingName) => {
+
+    try {
+        const mailOptions = { 
+            from: process.env.EMAIL_ADRESS,
+            to,
+            subject: 'You have a new message on TrojanTrade!',
+            text: `Hi,\n\nYou received a new message from ${senderUsername} regarding the listing "${listingName}".\n\nLog in to your account to view the message.\n\nBest regards,\nTrojan Trade Team`,
+            html: `<p>Hi,<p> You recieved a new message from <strong>${senderUsername}</strong> regarding the listing "<strong>${listingName}</strong>".</p><p>Log in to your account to view the message.</p><p>Best regards,<br/>Trojan Trade Team</p>`
+        };
+        const message = await transporter.sendMail(mailOptions);
+        console.log('Notification email sent', message);
+    }
+    catch (error) {
+        console.error('Failed to send notification email:', error);
+    }
+};
+
+module.exports = { sendWelcomeEmail, sendNotificationEmail };
+
 app.post('/api/sendMessage', authMiddleware, async (req, res) => {
 
     const { content, listingId, recipientId } = req.body;
@@ -560,11 +618,14 @@ app.post('/api/sendMessage', authMiddleware, async (req, res) => {
         });
 
         await newMessage.save();
-
         conversation.messages.push(newMessage);
-
         await conversation.save();
 
+        const recipient = await Users.findById(recipientId);
+        const sender = await Users.findById(senderId);
+        const listing = await Listing.findById(listingId);
+        // (to, senderName, listingName)
+        sendNotificationEmail(recipient.email, sender.username, listing.name);
         res.json({ success: true, conversation });
     }
     catch (error) {
