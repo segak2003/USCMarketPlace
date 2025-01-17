@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { AuthContext, AuthProvider } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
+import PrivateRoute from './components/PrivateRoute';
 import SellPage from './components/SellPage';
 import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUpPage';
@@ -25,7 +26,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/profile/:userName',
-    element: <UserProfilePage />,
+    element: (
+      <PrivateRoute>
+        <UserProfilePage />
+      </PrivateRoute>
+    ),
   },
   {
     path: '/listing/:listingId/profile/:userId',
@@ -41,11 +46,19 @@ const router = createBrowserRouter([
   },
   {
     path: '/Messages',
-    element: <MessagesPage />,
+    element: (
+      <PrivateRoute>
+        <MessagesPage />
+      </PrivateRoute>
+    ),
   },
   {
     path: '/Likes',
-    element: <LikesPage />,
+    element: (
+      <PrivateRoute>
+        <LikesPage />
+      </PrivateRoute>
+    ),
   },
   {
     path: '/ShopListings',

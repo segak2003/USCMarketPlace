@@ -21,7 +21,6 @@ function Header() {
     };
 
     const handleLogout = async () => {
-        console.log("entered logout handler");
         await logout();
         setMenuVisible(false);
         navigate('/');
@@ -63,8 +62,6 @@ function Header() {
             if (iconRef.current && headerRef.current) {
                 setIconHeight(iconRef.current.offsetHeight);
                 setHeaderHeight(headerRef.current.offsetHeight);
-                console.log("Icon Height: ", iconRef.current.offsetHeight);
-                console.log("Header Height: ", headerRef.current.offsetHeight);
             }
         };
 

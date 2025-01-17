@@ -2,16 +2,25 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from './Header';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import './MessagesPage.css';
 
 function MessagesPage() {
-    const { currentUser } = useAuth();
+    const { currentUser, loading } = useAuth();
+    const navigate = useNavigate();
     const [conversations, setConversations] = useState([]);
     const [selectedConversation, setSelectedConversation] = useState(null);
     const [newMessage, setNewMessage] = useState("");
     const API_URL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
+        if (!loading && !currentUser) {
+          navigate('/login');
+        }
+      }, [currentUser, loading, navigate]);
+    
+    useEffect(() => {
+        if (currentUser) {
         const fetchConversations = async () => {
             try {
                 const response = await axios.get(`${API_URL}/conversations`, { withCredentials: true });
@@ -32,7 +41,8 @@ function MessagesPage() {
         };
 
         fetchConversations();
-    }, []);
+        } 
+    }, [currentUser, API_URL]);
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);

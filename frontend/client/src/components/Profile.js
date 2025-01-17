@@ -14,13 +14,8 @@ const Profile = () => {
     const API_URL = process.env.REACT_APP_API_URL;
 
     const fetchUserProfile = async () => {
-        try {
             const response = await axios.get(`${API_URL}/user`, { withCredentials: true });
             setProfilePicture(response.data.profilePicture || defaultPic);
-        }
-        catch (error) {
-            console.error("Failed to fetch user profile", error);
-        }
     };
 
     useEffect(() => {

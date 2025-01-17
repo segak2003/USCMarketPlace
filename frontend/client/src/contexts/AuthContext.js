@@ -19,14 +19,10 @@ export const AuthProvider = ({ children }) => {
             if (user.listingData) {
                 const listingDataMap = new Map(Object.entries(user.listingData));
             } 
-            else {
-                console.log("No listingData found in user data.");
-            }
 
             setCurrentUser(user);
         }
         catch (error) {
-            console.error("Error fetching user data", error); // Added error logging
             setCurrentUser(null);
         }
         finally {
